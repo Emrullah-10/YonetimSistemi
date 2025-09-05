@@ -1,0 +1,146 @@
+@model DepartmanProjem.Models.Personel
+
+@{
+    ViewData["Title"] = "Yeni Personel Ekle";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-user-plus me-2"></i>Yeni Personel Ekle</h2>
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="fas fa-arrow-left me-2"></i>Geri Dön
+    </a>
+</div>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Create" method="post" novalidate>
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="Ad" class="form-label"></label>
+                        <input asp-for="Ad" class="form-control" placeholder="Adını giriniz" />
+                        <span asp-validation-for="Ad" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="Soyad" class="form-label"></label>
+                        <input asp-for="Soyad" class="form-control" placeholder="Soyadını giriniz" />
+                        <span asp-validation-for="Soyad" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="BirimId" class="form-label"></label>
+                        <select asp-for="BirimId" class="form-select" asp-items="ViewBag.BirimId" required>
+                            <option value="">-- Birim seçiniz --</option>
+                        </select>
+                        <span asp-validation-for="BirimId" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a asp-action="Index" class="btn btn-secondary me-md-2">İptal</a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Kaydet
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Bilgi
+                </h5>
+                <p class="card-text">
+                    Yeni bir personel eklerken dikkat edilmesi gerekenler:
+                </p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success me-2"></i>Ad ve soyad zorunlu alanlardır</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Birim seçimi zorunludur</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Ad ve soyad en fazla 50 karakter olabilir</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6 class="card-title">
+                    <i class="fas fa-sitemap me-2"></i>
+                    Mevcut Birimler
+                </h6>
+                <p class="card-text">
+                    Personel eklemeden önce birimlerin mevcut olduğundan emin olun.
+                </p>
+                <a asp-controller="Birim" asp-action="Index" class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-external-link-alt me-1"></i>Birimleri Görüntüle
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function() {
+            // Form submit öncesi validation
+            $('form').on('submit', function(e) {
+                var birimId = $('#BirimId').val();
+                var ad = $('#Ad').val().trim();
+                var soyad = $('#Soyad').val().trim();
+                
+                // Ad kontrolü
+                if (!ad) {
+                    e.preventDefault();
+                    alert('Lütfen ad alanını doldurunuz!');
+                    $('#Ad').focus();
+                    return false;
+                }
+                
+                // Soyad kontrolü
+                if (!soyad) {
+                    e.preventDefault();
+                    alert('Lütfen soyad alanını doldurunuz!');
+                    $('#Soyad').focus();
+                    return false;
+                }
+                
+                // Birim kontrolü
+                if (!birimId || birimId === '') {
+                    e.preventDefault();
+                    alert('Lütfen bir birim seçiniz!');
+                    $('#BirimId').focus();
+                    return false;
+                }
+                
+                console.log('Form submit ediliyor... Ad:', ad, 'Soyad:', soyad, 'BirimId:', birimId);
+                return true;
+            });
+            
+            // Birim dropdown'ına change event ekle
+            $('#BirimId').on('change', function() {
+                var selectedValue = $(this).val();
+                console.log('Seçilen birim ID:', selectedValue);
+                
+                // Eğer geçerli bir değer seçildiyse hata mesajını temizle
+                if (selectedValue && selectedValue !== '') {
+                    $('.text-danger').hide();
+                }
+            });
+        });
+    </script>
+}

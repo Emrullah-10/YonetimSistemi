@@ -1,0 +1,74 @@
+@model IEnumerable<DepartmanProjem.Models.Personel>
+
+@{
+    ViewData["Title"] = "Personeller";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-users me-2"></i>Personeller</h2>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>Yeni Personel Ekle
+    </a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i>
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="card">
+    <div class="card-body">
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.PersonelId)</th>
+                            <th>@Html.DisplayNameFor(model => model.Ad)</th>
+                            <th>@Html.DisplayNameFor(model => model.Soyad)</th>
+                            <th>@Html.DisplayNameFor(model => model.Birim)</th>
+                            <th class="text-center">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.PersonelId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Ad)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Soyad)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Birim.BirimAd)</td>
+                                <td class="text-center">
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Details" asp-route-id="@item.PersonelId" class="btn btn-info btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@item.PersonelId" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.PersonelId" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                <h5 class="text-muted">Henüz personel bulunmuyor</h5>
+                <p class="text-muted">İlk personelinizi eklemek için yukarıdaki butonu kullanın.</p>
+            </div>
+        }
+    </div>
+</div>

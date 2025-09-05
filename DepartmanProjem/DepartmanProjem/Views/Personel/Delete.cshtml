@@ -1,0 +1,86 @@
+@model DepartmanProjem.Models.Personel
+
+@{
+    ViewData["Title"] = "Personel Sil";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-user-times me-2"></i>Personel Sil</h2>
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="fas fa-arrow-left me-2"></i>Geri Dön
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Uyarı</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-danger mb-3">
+                    <strong>Bu personeli silmek istediğinizden emin misiniz?</strong>
+                </p>
+                
+                <div class="alert alert-warning">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Dikkat:</strong> Bu işlem geri alınamaz.
+                </div>
+                
+                <dl class="row">
+                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.PersonelId)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.PersonelId)</dd>
+                    
+                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Ad)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.Ad)</dd>
+                    
+                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Soyad)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.Soyad)</dd>
+                    
+                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Birim)</dt>
+                    <dd class="col-sm-9">
+                        <span class="badge bg-primary">@Html.DisplayFor(model => model.Birim.BirimAd)</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="card-footer">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="PersonelId" />
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a asp-action="Index" class="btn btn-secondary me-md-2">İptal</a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i>Evet, Sil
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-user-circle fa-5x text-danger"></i>
+                </div>
+                <h5 class="card-title">@Model.Ad @Model.Soyad</h5>
+                <p class="card-text">
+                    <span class="badge bg-primary">@Model.Birim.BirimAd</span>
+                </p>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6 class="card-title">
+                    <i class="fas fa-sitemap me-2"></i>
+                    Birim Bilgileri
+                </h6>
+                <p class="card-text">
+                    <strong>Birim ID:</strong> @Model.Birim.BirimId<br>
+                    <strong>Birim Adı:</strong> @Model.Birim.BirimAd
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

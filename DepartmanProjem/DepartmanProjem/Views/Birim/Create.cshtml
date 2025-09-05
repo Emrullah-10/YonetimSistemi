@@ -1,0 +1,60 @@
+@model DepartmanProjem.Models.Birim
+
+@{
+    ViewData["Title"] = "Yeni Birim Ekle";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-plus me-2"></i>Yeni Birim Ekle</h2>
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="fas fa-arrow-left me-2"></i>Geri Dön
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Create" method="post" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="BirimAd" class="form-label"></label>
+                        <input asp-for="BirimAd" class="form-control" placeholder="Birim adını giriniz" />
+                        <span asp-validation-for="BirimAd" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a asp-action="Index" class="btn btn-secondary me-md-2">İptal</a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Kaydet
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Bilgi
+                </h5>
+                <p class="card-text">
+                    Yeni bir birim eklerken dikkat edilmesi gerekenler:
+                </p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success me-2"></i>Birim adı benzersiz olmalıdır</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Birim adı en fazla 100 karakter olabilir</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Birim adı zorunlu bir alandır</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,82 @@
+@model DepartmanProjem.Models.Birim
+
+@{
+    ViewData["Title"] = "Birim Sil";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-trash me-2"></i>Birim Sil</h2>
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="fas fa-arrow-left me-2"></i>Geri Dön
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Uyarı</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-danger mb-3">
+                    <strong>Bu birimi silmek istediğinizden emin misiniz?</strong>
+                </p>
+                
+                <div class="alert alert-warning">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Dikkat:</strong> Bu birime bağlı tüm personeller de silinecektir. Bu işlem geri alınamaz.
+                </div>
+                
+                <dl class="row">
+                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.BirimId)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.BirimId)</dd>
+                    
+                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.BirimAd)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.BirimAd)</dd>
+                </dl>
+            </div>
+            <div class="card-footer">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="BirimId" />
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a asp-action="Index" class="btn btn-secondary me-md-2">İptal</a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i>Evet, Sil
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-users me-2"></i>
+                    Bağlı Personeller
+                </h5>
+                @if (Model?.Personeller != null && Model.Personeller.Any())
+                {
+                    <p class="text-danger">
+                        <strong>@Model.Personeller.Count</strong> personel bu birime bağlı.
+                    </p>
+                    <ul class="list-unstyled">
+                        @foreach (var personel in Model.Personeller.Take(5))
+                        {
+                            <li><i class="fas fa-user me-2"></i>@personel.Ad @personel.Soyad</li>
+                        }
+                        @if (Model.Personeller.Count > 5)
+                        {
+                            <li class="text-muted">... ve @(Model.Personeller.Count - 5) kişi daha</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="text-success">Bu birime bağlı personel bulunmuyor.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

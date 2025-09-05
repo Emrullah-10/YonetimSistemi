@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body text-center">
+                <h1 class="display-4 text-primary mb-4">
+                    <i class="fas fa-building me-3"></i>
+                    Departman Yönetim Sistemi
+                </h1>
+                <p class="lead text-muted mb-5">
+                    Birim ve personel yönetimi için geliştirilmiş modern web uygulaması
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-sitemap fa-3x text-primary"></i>
+                </div>
+                <h4 class="card-title">Birim Yönetimi</h4>
+                <p class="card-text">Şirket birimlerini ekleyin, düzenleyin ve yönetin.</p>
+                <a asp-controller="Birim" asp-action="Index" class="btn btn-primary">
+                    <i class="fas fa-arrow-right me-2"></i>Birimlere Git
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-users fa-3x text-success"></i>
+                </div>
+                <h4 class="card-title">Personel Yönetimi</h4>
+                <p class="card-text">Personel bilgilerini yönetin ve birimlere atayın.</p>
+                <a asp-controller="Personel" asp-action="Index" class="btn btn-primary">
+                    <i class="fas fa-arrow-right me-2"></i>Personellere Git
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Sistem Özellikleri
+                </h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>Modern ve responsive tasarım</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Güvenli giriş sistemi</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>CRUD işlemleri</li>
+                            <li><i class="fas fa-check text-success me-2"></i>İlişkisel veri yönetimi</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>Bootstrap 5 desteği</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Entity Framework Core</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
